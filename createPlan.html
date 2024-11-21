@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/common.css">
+
+    <script src="js/vue.min.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="vant2/vant.min.css">
+    <!-- 引入组件库 -->
+    <script src="vant2/vant.min.js"></script>
+
+    <script src="../js/jquery.js"></script>
+    <script src="../js/main/jquery.xhb.plugin.js"></script>
+    <style>
+        #app {
+            width: 390px;
+            height: 800px;
+        }
+
+        .steps-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            color: #FFFFFF;
+            text-align: center;
+            line-height: 24px;
+        }
+
+        .steps-active-icon {
+            background-color: #378FFA;
+        }
+
+        .steps-notactive-icon {
+            background-color: #D8D8D8;
+        }
+
+        .wordItem {
+            flex: 1;
+            text-align: center;
+        }
+
+        .van-picker-column,
+        .van-picker__toolbar,
+        .van-picker-column__item {
+            width: 390px;
+        }
+
+        .van-picker__cancel {
+            color: #000000;
+            font-size: 400;
+        }
+
+        .van-picker__confirm {
+            color: #378FFA;
+            font-size: 500;
+        }
+
+        .van-picker__title {
+            color: #000000;
+            font-size: 500;
+        }
+
+        .van-picker-column__item--selected {
+            color: #378FFA;
+        }
+
+        .van-cell {
+            width: calc(100%-32px);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<!-- 引入组件库样式 -->
+
+<body>
+    <div id="app">
+        <div>
+            <van-nav-bar title="Create a schedule" left-arrow />
+        </div>
+
+
+        <div style="width: 100%;margin-top: 21px;">
+            <div style="display: flex;flex-direction: row;padding: 0 42px;gap: 12px;align-items: center;">
+                <div :class="['steps-icon',stepsNum>=1? 'steps-active-icon':'steps-notactive-icon']">1</div>
+                <div style=" height: 3px;background-color: #dfe1e3;flex-grow: 1;"></div>
+                <div :class="['steps-icon',stepsNum>=2? 'steps-active-icon':'steps-notactive-icon']">2</div>
+                <div style=" height: 3px;background-color: #dfe1e3;flex-grow: 1"></div>
+                <div :class="['steps-icon',stepsNum>=3? 'steps-active-icon':'steps-notactive-icon']">3</div>
+            </div>
+            <div style="display: flex;flex-direction: row;margin-top: 8px;">
+                <div class="wordItem">Select device</div>
+                <div class="wordItem">Configure electricity prices</div>
+                <div class="wordItem">Select the scheduling mode</div>
+            </div>
+        </div>
+        <!-- 步骤一 -->
+        <div style="width: calc(100%-32px);padding: 0 16px;" v-if="stepsNum==1">
+            <div>
+                <div>Select a power station</div>
+                <van-field v-model="powerStation" />
+            </div>
+            <div style="width: calc(100%-32px)">
+                <div>Select device</div>
+                <van-field readonly clickable :value="device" placeholder="Select device"
+                    @click="showDevicePicker = true" />
+                <van-popup v-model="showDevicePicker" round position="top">
+                    <van-picker show-toolbar title="Select device" :columns="deviceList"
+                        @cancel="showDevicePicker = false" @confirm="onDeviceConfirm" />
+                </van-popup>
+            </div>
+        </div>
+
+        <!-- 步骤二 -->
+        <van-popup v-model="showPriceType" position="top">
+            <van-picker show-toolbar :columns="priceTypeList" @confirm="onPriceTypeConfirm"
+                @cancel="showPriceType = false" />
+        </van-popup>
+
+        <van-popup v-model="showArea" position="top">
+            <van-picker show-toolbar :columns="areaList" @confirm="onAreaConfirm" @cancel="showArea = false" />
+        </van-popup>
+        <van-popup v-model="showPowerSupplyPrice" position="top">
+            <van-picker show-toolbar :columns="powerSupplyPriceList" @confirm="onPowerSupplyPriceConfirm"
+                @cancel="showPowerSupplyPrice = false" />
+        </van-popup>
+        <van-popup v-model="showFeedPrice" position="top">
+            <van-picker show-toolbar :columns="feedPriceList" @confirm="onFeedPriceConfirm"
+                @cancel="showFeedPrice = false" />
+        </van-popup>
+        <van-popup v-model="showCountry" position="top">
+            <van-picker show-toolbar :columns="countryList" @confirm="onCountryConfirm" @cancel="showCountry = false" />
+        </van-popup>
+        <van-popup v-model="showRegion" position="top">
+            <van-picker show-toolbar :columns="regionList" @confirm="onRegionConfirm" @cancel="showRegion = false" />
+        </van-popup>
+
+        <van-popup v-model="showRateCalendar" position="bottom" >
+            <!-- <van-datetime-picker
+            v-model="currentDate"
+            type="date"
+            title="选择年月日"
+            :min-date="minDate"
+            :max-date="maxDate"
+            /> -->
+            <van-calendar type="range" v-model="showRateCalendar"
+                                    :default-date="defaultDate"
+                                    @confirm="onRateDateConfirm" />
+        </van-popup>
+        
+
+        <div style="width: calc(100%-32px);padding: 0 16px;" v-if="stepsNum==2">
+            <van-form @submit="onSubmit">
+                <van-cell-group class="mb-15">
+                    <div style="margin-top: 32px;">电价来源</div>
+
+                    <van-field readonly clickable name="priceType" :value="priceType" placeholder="点击选择电价类型"
+                        @click="priceTypeChange" />
+                </van-cell-group>
+
+                <van-cell-group class="mb-15" v-if="priceType=='Nordpool'">
+                        <div >区域</div>
+                        <van-field readonly clickable name="area" :value="area" placeholder="点击选择区域"
+                            @click="showArea = true" />
+
+
+                        <div >取电电价</div>
+                        <van-field readonly clickable name="powerSupplyPrice" :value="powerSupplyPrice"
+                            placeholder="点击选择取电电价" @click="showPowerSupplyPrice = true" />
+
+
+                        <div >馈电电价</div>
+                        <van-field readonly clickable name="feedPrice" :value="feedPrice" placeholder="点击选择取电电价"
+                            @click="showFeedPrice = true" />
+                </van-cell-group>
+
+                <van-cell-group class="mb-15" v-if="priceType=='Octopus'">
+                    <div >国家</div>
+                        <van-field readonly clickable name="country" :value="country" placeholder="点击选择区域"
+                            @click="showCountry = true" />
+
+
+                        <div >地区</div>
+                        <van-field readonly clickable name="region" :value="region" placeholder="点击选择地区"
+                            @click="showRegion = true" />
+                </van-cell-group>
+
+                <van-cell-group class="mb-15">
+                    <div  class="flex_space-between">
+                        <span>费率设置</span>
+                        <van-switch v-model="rateSettingChecked" size="20" />                        
+                    </div>
+                    <div><p class="fs-12 c_gray">开启后可以调整馈电和取电的电价</p></div>
+                </van-cell-group>
+
+                <van-cell-group class="mb-15">
+
+                    <div>
+                        <div v-for="(rateGroup,rateIndex) in rateGroups" :key="rateIndex">
+                            <div class="mb-5 flex_space-between">
+                                <span>{{ 'Rate'+(rateIndex+1) }}</span>
+                                <span>delete</span>
+                            </div>
+                            <div class="w-100 mb-25">
+                                <div>Date</div>
+                                <van-field readonly clickable name="calendar" :value="rateGroup.rateDate" label="日历"
+                                    placeholder="点击选择日期" @click="showCalendar(rateIndex)" />
+                                
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div style="margin-top:20px;width: 358px;">
+                        <van-button round block type="info" native-type="submit">提交</van-button>
+                    </div>
+                </van-cell-group>
+
+
+            </van-form>
+        </div>
+
+
+    </div>
+
+    <script>
+        let createPlanAPP = new Vue({
+            el: '#app',
+            data: {
+                stepsNum: 2,
+                powerStation: '电站A',
+                device: 'AAAABJ769',
+                showDevicePicker: false,
+                deviceList: ['AAAABJ769', 'NAZUA8666', 'CCPCUE', 'OANSJNK9173M'],
+                priceType: 'Nordpool',
+                showPriceType: false,
+                priceTypeList: ['Nordpool', 'Octopus'],
+                area: '',
+                showArea: false,
+                areaList: ['宝安', '福田', '南山'],
+                powerSupplyPrice: '',
+                showPowerSupplyPrice: false,
+                powerSupplyPriceList: ['1.1', '2.2', '3.4'],
+                feedPrice: '',
+                showFeedPrice: false,
+                feedPriceList: ['1.1', '2.2', '3.3'],
+                country: '',
+                showCountry: false,
+                countryList: ['中国', '美国', '英国'],
+                region: '',
+                showRegion: false,
+                regionList: ['宝安', '福田', '南山'],
+                rateSettingChecked: true,
+                rateGroups: [
+                    {
+                        rateDate: '',
+                        showRateCalendar: false,
+                        timeList: [{ time: '8:00-10:00', dischargeRate: '1.1', chargeRate: '2.2' }]
+                    },
+                    {
+                        rateDate: '',
+                        showRateCalendar: false,
+                        timeList: [{ time: '8:00-10:00', dischargeRate: '1.1', chargeRate: '2.2' }]
+                    }
+                ],
+                showRateCalendar: false,
+                currentRateIndex: 0,  //当前选中的费率的索引
+            }, 
+            computed:{
+                currentShowRateCalendar(){
+                    return this.rateGroups[this.currentRateIndex].showRateCalendar;
+                },
+                defaultDate(){
+                    let dateRange = this.rateGroups[this.currentRateIndex].rateDate;
+                    if(dateRange == ''){
+                        return [];
+                    }else{
+                        let dateList = dateRange.split('~');
+                        return dateList.map((item)=>{return new Date(item)})
+                    }
+                }
+            },   
+            watch:{},
+            created(){},
+            mounted(){},
+            methods: {
+                priceTypeChange() {
+                    console.info('使用priceTypeChange')
+                    this.showPriceType = true
+                },
+                onDeviceConfirm(value) {
+                    this.device = value;
+                    this.showDevicePicker = false;
+                },
+                onPriceTypeConfirm(value) {
+                    this.priceType = value;
+                    this.showPriceType = false;
+                },
+                onAreaConfirm(value) {
+                    this.area = value;
+                    this.showArea = false;
+                },
+                onPowerSupplyPriceConfirm(value) {
+                    this.powerSupplyPrice = value;
+                    this.showPowerSupplyPrice = false;
+                },
+                onFeedPriceConfirm(value) {
+                    this.feedPrice = value;
+                    this.showFeedPrice = false
+                },
+                onCountryConfirm(value) {
+                    this.country = value;
+                    this.showCountry = false
+                },
+                onRegionConfirm(value) {
+                    this.region = value;
+                    this.showRegion = false
+                },
+                showCalendar(rateIndex) {
+                    console.info('rateIndex', rateIndex)
+                    this.currentRateIndex = rateIndex;
+                    this.rateGroups[rateIndex].showRateCalendar = true;
+                    this.showRateCalendar = true;
+                },
+                onRateDateConfirm(value) {
+                    console.info('timeRange', value)
+                    // this.rateGroups[this.currentRateIndex].rateDate = value[0]
+                    this.rateGroups[this.currentRateIndex].rateDate = `${this.formatDate(value[0])}~${this.formatDate(value[1])}`
+                    this.rateGroups[this.currentRateIndex].showRateCalendar = false
+                    this.showRateCalendar = false;
+                },
+                formatDate(date) {
+                    console.info('日子', date.getFullYear())
+                    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+                },
+                onSubmit(values) {
+                    console.log('submit', values);
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+
+    <script src="js/vue.min.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="vant2/vant.min.css">
+    <!-- 引入组件库 -->
+    <script src="vant2/vant.min.js"></script>
+
+    <script src="../js/jquery.js"></script>
+    <script src="../js/main/jquery.xhb.plugin.js"></script>
+</head>
+<body>
+    <div id="APP">
+        <!-- <a href="https://youzan.github.io/vant/v2/?ref=browsee.io#/zh-CN/popup">官方文档</a> -->
+       <div>
+        <van-nav-bar
+            title="标题"
+            left-text="返回"
+            right-text="按钮"
+            left-arrow
+        />
+       </div>
+        <van-cell is-link @click="showPopup">展示弹出层</van-cell>
+        <van-popup v-model="dDhow" position="top" :style="{ height: '30%' }">
+            <div>日期选择器</div>
+            <van-datetime-picker
+                v-model="currentDate"
+                type="date"
+                title="选择年月日"
+                :min-date="minDate"
+                :max-date="maxDate"
+                />
+            </van-popup>
+
+            <div class="mt-30">
+                <van-button type="primary">主要按钮</van-button>
+                <van-button type="info">信息按钮</van-button>
+                <van-button type="default">默认按钮</van-button>
+                <van-button type="warning">警告按钮</van-button>
+                <van-button type="danger">危险按钮</van-button>
+            </div>
+
+            <van-cell is-link title="基础用法" @click="show = true" />
+<van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
+    </div>
+    
+    <script>
+        var app = new Vue({
+				el:"#APP",
+				data(){
+					return {
+						dDhow:false,
+                        minDate: new Date(2020, 0, 1),
+                        maxDate: new Date(2025, 10, 1),
+                        currentDate: new Date(2021, 0, 17),
+                        show: false,
+      actions: [{ name: '选项一' }, { name: '选项二' }, { name: '选项三' }],
+					}
+				},
+				created(){
+
+				},
+				mounted() {
+					
+				},
+				watch:{
+
+				},
+				methods:{
+                    showPopup() {
+                    this.show = true;
+                    },
+                    onSelect(item) {
+      // 默认情况下点击选项时不会自动收起
+      // 可以通过 close-on-click-action 属性开启自动收起
+      this.show = false;
+      Toast(item.name);
+    },
+				}
+			});
+    </script>
+</body>
+</html>

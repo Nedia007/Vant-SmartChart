@@ -1,0 +1,1024 @@
+@charset "utf-8";
+/* 公共样式sss */
+ /**
+  * @author 肖浩彬
+  * @date 2023-02-11
+  * @describe 公共样式表，所有系统适用，关于单位类名，带“-”为rem单位，带“_”为vh或者vw==========================================================================================================
+  * */
+ /* 字体大小(响应式) sss*/
+ .fs-12{font-size: 0.75rem;}
+ .fs-13{font-size: 0.8125rem;}
+ .fs-14{font-size: 0.875rem;}
+ .fs-15{font-size: 0.9375rem;}
+ .fs-16{font-size: 1rem;}
+ .fs-18{font-size:1.125rem;}
+ .fs-20{font-size:1.25rem;}
+ .fs-22{font-size:1.375rem;}
+ .fs-24{font-size:1.5rem;}
+ .fs-25{font-size:1.5625rem;}
+ .fs-26{font-size:1.625rem;}
+ .fs-28{font-size:1.75rem;}
+ .fs-30{font-size:1.875rem;}
+ .fs-32{font-size:2rem;}
+ .fs-34{font-size:2.125rem;}
+ .fs-36{font-size:2.25rem;}
+ /* 字体大小(响应式)  eee*/
+ 
+ /* 字体大小(自适应) sss*/
+ .fs_12{font-size: 1vh;}
+ .fs_13{font-size: 1.35vh;}
+ .fs_14{font-size: 1.45vh;}
+ .fs_15{font-size: 1.55vh;}
+ .fs_16{font-size: 1.66vh;}
+ .fs_18{font-size:1.86vh;}
+ .fs_20{font-size:2.07vh;}
+ .fs_22{font-size:2.28vh;}
+ .fs_24{font-size:2.48vh;}
+ .fs_25{font-size:2.58vh;}
+ .fs_26{font-size:2.69vh;}
+ .fs_28{font-size:2.89vh;}
+ .fs_30{font-size:3.1vh;}
+ .fs_32{font-size:3.31vh;}
+ .fs_34{font-size:3.51vh;}
+ .fs_36{font-size:3.72vh;}
+ /* 字体大小(自适应)  eee*/
+ 
+ /* 颜色和背景颜色 sss*/
+ .c-white{color: #fff;}
+ .c-red{color: red;}
+ .c-green{color: green;}
+ .c-black{color: black;}
+ .c-blue{color: blue;}
+ .c-orange{color: orange;}
+ .c-yellow{color: yellow;}
+ .c-gray{color: gray;}
+ 
+ .bg-c-white{background-color: #fff;}
+ .bg-c-red{background-color: red;}
+ .bg-c-green{background-color: green;}
+ .bg-c-black{background-color: black;}
+ .bg-c-blue{background-color: blue;}
+ .bg-c-orange{background-color: orange;}
+ .bg-c-yellow{background-color: yellow;}
+ .bg-c-gray{background-color: gray;}
+ /* 颜色和背景颜色 eee */
+ 
+ /*flex布局sss*/
+ /*水平从左到右排列*/
+ .flex-flex-row {
+     display: flex;
+     display: -webkit-flex;
+     flex-direction: row;
+ }
+ 
+ /*水平从右到左排列*/
+ .flex-flex-row-rev {
+     display: flex;
+     display: -webkit-flex;
+     flex-direction: row-reverse;
+ }
+ 
+ /*垂直从上到下排列*/
+ .flex-flex-column {
+     display: flex;
+     display: -webkit-flex;
+     flex-direction: column;
+ }
+ 
+ /*垂直从下到上排列*/
+ .flex-flex-column-rev {
+     display: flex;
+     display: -webkit-flex;
+     flex-direction: column-reverse;
+ }
+ /* 水平左对齐，有小间距 */
+ .flex-flex-start {
+     display: flex;
+     display: -webkit-flex;
+     justify-content: flex-start;
+ }
+ /* 水平右对齐，有小间距 */
+ .flex-flex-end {
+     display: flex;
+     display: -webkit-flex;
+     justify-content: flex-end;
+ }
+ 
+ /* 水平居中对齐，有小间距 */
+ .flex-center {
+     display: flex;
+     display: -webkit-flex;
+     justify-content: center;
+ }
+ 
+ /* 两端对齐，项目之间的间隔都相等 */
+ .flex-space-between {
+     display: flex;
+     display: -webkit-flex;
+     justify-content: space-between;
+ }
+ 
+ /* 每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍 */
+ .flex-space-around {
+     display: flex;
+     display: -webkit-flex;
+     justify-content: space-around;
+ }
+ 
+ /*每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔小一倍*/
+ .flex-space-evenly {
+     display: flex;
+     display: -webkit-flex;
+     justify-content: space-evenly;
+ }
+ 
+ /*项目不换行*/
+ .flex-nowrap {
+     display: flex;
+     display: -webkit-flex;
+     flex-wrap: nowrap;
+ }
+ 
+ /*项目换行*/
+ .flex-wrap {
+     display: flex;
+     display: -webkit-flex;
+     flex-wrap: wrap;
+ }
+ 
+ /*项目反向换行（即第一行排在最下方，以此类推）*/
+ .flex-wrap-reverse {
+     display: flex;
+     display: -webkit-flex;
+     flex-wrap: wrap-reverse;
+ }
+ 
+ /* 针对父元素 ，水平居中，垂直居中*/
+ .flex-center-middle{
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+ 
+ /*针对父元素，水平居中，垂直放在最低*/
+ .flex-center-end{
+     display: flex;
+     align-items: flex-end;
+     justify-content: center;
+ }
+ 
+ /*flex布局eee*/
+ 
+ /* 内外边距 sss */
+ .ml-20{
+     margin-left: 20px;
+ }
+ .ml-10{
+     margin-left: 10px;
+ }
+ .ml-5{
+     margin-left: 5px;
+ }
+ .ml-30{
+     margin-left: 30px;
+ }
+ .ml-15{
+     margin-left: 15px;
+ }
+ .ml-25{
+     margin-left: 25px;
+ }
+ .mt-10{
+     margin-top: 10px;
+ }
+ .mt-20{
+     margin-top: 20px;
+ }
+ .mt-25{
+     margin-top: 25px;
+ }
+ .mt-5{
+     margin-top: 5px;
+ }
+ .mt-15{
+     margin-top: 15px;
+ }
+ .mt-30{
+     margin-top: 30px;
+ }
+ .mb-5{
+     margin-bottom: 5px;
+ }
+ .mb-10{
+     margin-bottom: 10px;
+ }
+ .mb-15{
+     margin-bottom: 15px;
+ }
+ .mb-20{
+     margin-bottom: 20px;
+ }
+ .mb-25{
+     margin-bottom: 25px;
+ }
+ .mb-30{
+     margin-bottom: 30px;
+ }
+ .mr-5{
+     margin-right: 5px;
+ }
+ .mr-10{
+     margin-right: 10px;
+ }
+ .mr-15{
+     margin-right: 15px;
+ }
+ .mr-20{
+     margin-right: 20px;
+ }
+ .mr-25{
+     margin-right: 25px;
+ }
+ .mr-30{
+     margin-right: 30px;
+ }
+ .mg-5{margin: 5px;}
+ .mg-10{margin: 10px;}
+ .mg-15{margin: 15px;}
+ .mg-20{margin: 20px;}
+ .mg-25{margin: 25px;}
+ .mg-30{margin: 30px;}
+ 
+ .pt-5{padding-top:5px}/*上填充5像素*/
+ .pt-10{padding-top:10px}/*上填充10像素*/
+ .pt-15{padding-top:15px}/*上填充15像素*/
+ .pt-20{padding-top:20px}/*上填充20像素*/
+ .pt-25{padding-top:25px}/*上填充25像素*/
+ .pt-30{padding-top:30px}/*上填充30像素*/
+ 
+ .pb-5{padding-bottom:5px}/*下填充5像素*/
+ .pb-10{padding-bottom:10px}/*下填充10像素*/
+ .pb-15{padding-bottom:15px}/*下填充15像素*/
+ .pb-20{padding-bottom:20px}/*下填充20像素*/
+ .pb-25{padding-bottom:25px}/*下填充25像素*/
+ .pb-30{padding-bottom:30px}/*下填充30像素*/
+ 
+ .pl-5{padding-left:5px}/*左填充5像素*/
+ .pl-10{padding-left:10px}/*左填充10像素*/
+ .pl-15{padding-left:15px}/*左填充15像素*/
+ .pl-20{padding-left:20px}/*左填充20像素*/
+ .pl-25{padding-left:25px}/*左填充25像素*/
+ .pl-30{padding-left:30px}/*左填充30像素*/
+ 
+ .pr-5{padding-right:5px}/*右填充5像素*/
+ .pr-10{padding-right:10px}/*右填充10像素*/
+ .pr-15{padding-right:15px}/*右填充15像素*/
+ .pr-20{padding-right:20px}/*右填充20像素*/
+ .pr-25{padding-right:25px}/*右填充25像素*/
+ .pr-30{padding-right:30px}/*右填充30像素*/
+ 
+ .pd-5{padding:5px}/*填充5像素*/
+ .pd-10{padding:10px}/*填充10像素*/
+ .pd-15{padding:15px}/*填充15像素*/
+ .pd-20{padding:20px}/*填充20像素*/
+ .pd-25{padding:25px}/*填充25像素*/
+ .pd-30{padding:30px}/*填充30像素*/
+ /* 内外边距 eee */
+ 
+ /* 内外边距（自适应） sss*/
+ .pt_5{padding-top: 0.52vh;}/*上填充5像素*/
+ .pt_10{padding-top:1.04vh}/*上填充10像素*/
+ .pt_15{padding-top:1.55vh}/*上填充15像素*/
+ .pt_20{padding-top:2.08vh}/*上填充20像素*/
+ .pt_25{padding-top:2.6vh}/*上填充25像素*/
+ .pt_30{padding-top:3.12vh}/*上填充30像素*/
+ 
+ .pb_5{padding-bottom:0.52vh}/*下填充5像素*/
+ .pb_10{padding-bottom:1.04vh}/*下填充10像素*/
+ .pb_15{padding-bottom:1.55vh}/*下填充15像素*/
+ .pb_20{padding-bottom:2.08vh}/*下填充20像素*/
+ .pb_25{padding-bottom:2.6vh}/*下填充25像素*/
+ .pb_30{padding-bottom:3.12vh}/*下填充30像素*/
+ 
+ .pl_5{padding-left: 0.265vw;}/*左填充5像素*/
+ .pl_10{padding-left:0.53vw;}/*左填充10像素*/
+ .pl_15{padding-left:0.785vw}/*左填充15像素*/
+ .pl_20{padding-left:1.05vw}/*左填充20像素*/
+ .pl_25{padding-left:1.305vw}/*左填充25像素*/
+ .pl_30{padding-left:1.565vw}/*左填充30像素*/
+ 
+ .pr_5{padding-right:0.265vw}/*右填充5像素*/
+ .pr_10{padding-right:0.53vw;}/*右填充10像素*/
+ .pr_15{padding-right:0.785vw}/*右填充15像素*/
+ .pr_20{padding-right:1.05vw}/*右填充20像素*/
+ .pr_25{padding-right:1.305vw}/*右填充25像素*/
+ .pr_30{padding-right:1.565vw}/*右填充30像素*/
+ 
+ .pd_5{padding:0.52vh 0.265vw;}/*填充5像素*/
+ .pd_10{padding:1.04vh 0.53vw;}/*填充10像素*/
+ .pd_15{padding:1.55vh 0.785vw;}/*填充15像素*/
+ .pd_20{padding:2.08vh 1.05vw;}/*填充20像素*/
+ .pd_25{padding:2.6vh 1.305vw;}/*填充25像素*/
+ .pd_30{padding:3.12vh 1.565vw;}/*填充30像素*/
+ 
+ .mg_5{margin:0.52vh 0.265vw;}
+ .mg_10{margin:1.04vh 0.53vw;}
+ .mg_15{margin:1.55vh 0.785vw;}
+ .mg_20{margin:2.08vh 1.05vw;}
+ .mg_25{margin:2.6vh 1.305vw;}
+ .mg_30{margin:3.12vh 1.565vw;}
+ 
+ .mt_5{margin-top: 0.52vh;}
+ .mt_10{margin-top: 1.04vh;}
+ .mt_15{margin-top: 1.55vh;}
+ .mt_20{margin-top: 2.08vh;}
+ .mt_25{margin-top: 2.6vh;}
+ .mt_30{margin-top:3.12vh;}
+ 
+ .mb_5{margin-bottom: 0.52vh;}
+ .mb_10{margin-bottom: 1.04vh;}
+ .mb_15{margin-bottom: 1.55vh;}
+ .mb_20{margin-bottom: 2.08vh;}
+ .mb_25{margin-bottom: 2.6vh;}
+ .mb_30{margin-bottom:3.12vh;}
+ 
+ .ml_5{margin-left: 0.265vw;}
+ .ml_10{margin-left:0.53vw;}
+ .ml_15{margin-left:0.785vw;}
+ .ml_20{margin-left:1.05vw;}
+ .ml_25{margin-left:1.305vw;}
+ .ml_30{margin-left:1.565vw;}
+ 
+ .mr_5{margin-right: 0.265vw;}
+ .mr_10{margin-right:0.53vw;}
+ .mr_15{margin-right:0.785vw;}
+ .mr_20{margin-right:1.05vw;}
+ .mr_25{margin-right:1.305vw;}
+ .mr_30{margin-right:1.565vw;}
+ /* 内外边距（自适应） eee */
+ 
+ /*文字单行溢出省略号*/
+ .text-overflow{overflow: hidden;text-overflow: ellipsis;white-space: nowrap}
+ .hide{display: none;}
+ .no-border{
+     border: none;
+ }
+ .v-hidden{
+     visibility: hidden;
+ }
+ .required:before{
+     content: "*";
+     color: red;
+     display: inline;
+     margin-right: 5px;
+ }
+ .text-c{
+     text-align: center;
+ }.text-l{
+      text-align: left;
+  }
+ .text-r{
+     text-align: right;
+ }
+ /*清除浮动样式sss*/
+ .lf{
+     float: left;
+ }
+ .rf{
+     float: right;
+ }
+ .parent-clear{
+     overflow: hidden;
+ }
+ .parent-clear:after{
+     content: "";
+     display: block;
+     clear: both;
+ }
+ /* 清除浮动样式eee */
+ 
+ /* 清除浮动 */
+ .clearfix{
+     zoom: 1;
+ }
+ .clearfix:after{
+     content: "\00A0";
+     display: block;
+     visibility: hidden;
+     width: 0;
+     height: 0;
+     clear: both;
+     font-size: 0;
+     line-height: 0;
+     overflow: hidden;
+ }
+ /* 清除浮动 */
+ 
+ .inline-block{
+     display: inline-block;
+ }
+ .block{
+     display: block;
+ }
+ .inline{
+     display: inline;
+ }
+ 
+ 
+ /* 固定表格头部样式1 sss */
+ /* table.fixed-head{
+     width: auto;
+ } */
+ table.fixed-head th,table.fixed-head td{width: auto;}
+ table.fixed-head tbody{display:block;overflow:scroll; height: 200px;}
+ table.fixed-head thead,table.fixed-head tbody tr {display:table;width:100%;table-layout:fixed;}
+ table.fixed-head thead {width: calc( 100% - 1em )}
+ /* 固定表格头部样式1 eee */
+ 
+ /* 固定表格头部样式2 sss */
+ /* table-fix-box为表格外面div容器 */
+ .table-fix-box {
+     width: 100%;
+     max-height: 500px;
+     overflow: scroll;
+ }
+ .table-fix-box thead {
+     position: sticky;
+     top: 0;
+ }
+ /* 固定表格头部样式2 eee */
+ 
+ /**改变滚动条背景颜色样式sss*/
+ .scroll-effect::-webkit-scrollbar-track{
+     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+     /* background-color: #143c52; */
+     background-color: #fff;
+     border-radius: 10px;
+ }
+ .scroll-effect::-webkit-scrollbar{
+     width: 10px; height:10px;
+     background-color: #143c52;
+     border-radius: 10px;
+ }
+ /* 滚动条背景颜色 */
+ .scroll-effect::-webkit-scrollbar-thumb{
+     background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.86, rgba(75, 80, 84,0.5)));
+ }
+ .scroll-effect::-webkit-scrollbar-thumb:hover{
+     background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.86, rgba(75, 80, 84,1)));
+ }
+ 
+ 
+ .scroll-effect::-moz-scrollbar-track{
+     -moz-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+     /* background-color: #143c52; */
+     background-color: #fff;
+     border-radius: 10px;
+ }
+ .scroll-effect::-moz-scrollbar{
+     width: 10px; height:10px;
+     background-color: #143c52;
+     border-radius: 10px;
+ }
+ /* 滚动条背景颜色 */
+ .scroll-effect::-moz-scrollbar-thumb{
+     background-image: -moz-gradient(linear,left bottom,left top,color-stop(0.86, rgba(75, 80, 84,0.5)));
+ }
+ .scroll-effect::-moz-scrollbar-thumb:hover{
+     background-image: -moz-gradient(linear,left bottom,left top,color-stop(0.86, rgba(75, 80, 84,1)));
+ }
+ /**改变滚动条背景颜色样式eee*/
+ 
+ 
+ .w-5{width:5%;}
+ .w-6{width:6%;}
+ .w-7{width:7%;}
+ .w-8{width:8%;}
+ .w-9{width:9%;}
+ .w-10{width:10%;}
+ .w-11{width:11%;}
+ .w-12{width:12%;}
+ .w-13{width:13%;}
+ .w-14{width:14%;}
+ .w-15{width:15%;}
+ .w-20{width:20%;}
+ .w-25{width:25%;}
+ .w-30{width:30%;}
+ .w-34{width:34%;}
+ .w-35{width:35%;}
+ .w-36{width:36%;}
+ .w-37{width:37%;}
+ .w-38{width:38%;}
+ .w-39{width:39%;}
+ .w-40{width:40%;}
+ .w-41{width:41%;}
+ .w-42{width:42%;}
+ .w-43{width:43%;}
+ .w-44{width:44%;}
+ .w-45{width:45%;}
+ .w-50{width:50%;}
+ .w-55{width:55%;}
+ .w-60{width:60%;}
+ .w-65{width:65%;}
+ .w-70{width:70%;}
+ .w-75{width:75%;}
+ .w-80{width:80%;}
+ .w-85{width:85%;}
+ .w-90{width:90%;}
+ .w-95{width:95%;}
+ .w-100{width:100%;}
+ 
+ /* 默认样式修改sss */
+ 
+ /* a[href],
+ input[type="submit"],
+ input[type="image"],
+ input[type="button"],
+ label[for],
+ select,
+ button {
+   cursor: pointer;
+ } */
+ 
+ /* 自定义选中文本颜色和背景  复制网页文本用到*/
+ /* .selection::selection{
+     color: green;
+     background-color: pink;
+ }
+ .selection::-moz-selection{
+     color: green;
+     background-color: pink;
+ }
+ .selection::-webkit-selection{
+     color: green;
+     background-color: pink;
+ } */
+ 
+ 
+ /* 默认样式修改eee */
+ 
+ 
+ 
+ /* 文本样式相关修改 sss */
+ 
+ /* 文本缩进类 */
+ .text-indent {
+     text-indent: 2rem;
+ }
+ /*16px*/
+ .text-indent-xs {
+     text-indent: 1.5rem;
+ }
+ /*12px*/
+ .text-indent-sm {
+     text-indent: 1.7rem;
+ }
+ /*14px*/
+ .text-indent-md {
+     text-indent: 2rem;
+ }
+ /*18px*/
+ .text-indent-lg {
+     text-indent: 2.4rem;
+ }
+ 
+ /* 适合单行，宽度固定，内容溢出省略sss... */
+ .one-overflow{
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+ }
+ 
+ /* 适合多行，默认3行，宽度不固定以及移动端显示，内容溢出省略sss... */
+ .more-overflow{
+     overflow: hidden;
+     text-overflow: ellipsis;
+     display: -webkit-box;
+     -webkit-line-clamp: 3;
+     -webkit-box-orient: vertical;
+ }
+ /* 制造文本模糊效果 */
+ .txt-shadow{
+     color: transparent;
+     text-shadow: 0 0 2px rgba(0,0,0,0.5);
+ }
+ 
+ /* 文本首字下沉效果 */
+ .txt-first-down:first-letter{
+     float: left;
+     font-size: 28px;
+ }
+ 
+ /* 文本样式相关修改 eee */
+ 
+ 
+ 
+ /*  未知宽高情况下，垂直水平居中sss*/
+ .center-pos{
+     position: absolute;
+     left: 50%;
+     top:50%;
+     transform: translate(-50%,-50%);
+     -moz-transform: translate(-50%,-50%);
+     -ms-transform: translate(-50%,-50%);
+     -o-transform: translate(-50%,-50%);
+     -webkit-transform: translate(-50%,-50%);
+ }
+ /*  未知宽高情况下，垂直水平居中eee*/
+ 
+ /* 垂直居中sss */
+ .v-middle {
+     position: relative;
+     top: 50%;
+     -webkit-transform: -webkit-translateY(-50%);
+     -moz-transform: -moz-translateY(-50%);
+     -o-transform: -o-translateY(-50%);
+     transform: translateY(-50%);
+ }
+ /* 垂直居中eee */
+ 
+ 
+ 
+ 
+ 
+ 
+ /* 关于动画sss */
+ 
+ /*旋转动画  */
+ .rorate-animate{
+     -moz-animation: spin 2s linear 1s 5 alternate;
+     -ms-animation: spin 2s linear 1s 5 alternate;
+     -webkit-animation: spin 2s linear 1s 5 alternate;
+     animation: spin 2s linear infinite;
+ }
+ @-webkit-keyframes spin {
+     from {
+         -webkit-transform: rotate(0deg);
+     }
+     to {
+         -webkit-transform: rotate(360deg);
+     }
+ }
+ @keyframes spin {
+     from {
+         transform: rotate(0deg);
+     }
+     to {
+         transform: rotate(360deg);
+     }
+ }
+ @-moz-keyframes spin {
+     from {
+         -webkit-transform: rotate(0deg);
+     }
+     to {
+         -webkit-transform: rotate(360deg);
+     }
+ }
+ @-ms-keyframes spin {
+     from {
+         -webkit-transform: rotate(0deg);
+     }
+     to {
+         -webkit-transform: rotate(360deg);
+     }
+ }
+ /*旋转动画  eee*/
+ 
+ /* 动画实现简单的loading效果 ===省略号加载条  sss */
+ .com-loading:after{
+     display: inline-block;
+     overflow: hidden;
+     vertical-align: bottom;
+     content: "\2026";
+     animation:ellipsis 2s infinite;
+     transform: scale(1.5);
+ }
+ @-webkit-keyframes ellipsis{
+     from{
+         width: 2px;
+     }
+     to{
+         width: 15px;
+     }
+ }
+ @-ms-keyframes ellipsis{
+     from{
+         width: 2px;
+     }
+     to{
+         width: 15px;
+     }
+ }
+ @-moz-keyframes ellipsis{
+     from{
+         width: 2px;
+     }
+     to{
+         width: 15px;
+     }
+ }
+ @keyframes ellipsis{
+     from{
+         width: 2px;
+     }
+     to{
+         width: 15px;
+     }
+ }
+ /*  动画实现简单的loading效果 ===省略号加载条  eee */
+ 
+ /* css3 绘制图标sss */
+ /* 墙 */
+ .com-gradient {
+     position: relative;
+     width: 300px;
+     height: 300px;
+     border-radius: 50%;
+     background-color: silver;
+     background-image: linear-gradient(335deg, #b00 23px, transparent 23px),
+     linear-gradient(155deg, #d00 23px, transparent 23px), linear-gradient(
+             335deg,
+             #b00 23px,
+             transparent 23px
+     ), linear-gradient(155deg, #d00 23px, transparent 23px);
+     background-size: 58px 58px;
+     background-position: 0px 2px, 4px 35px, 29px 31px, 34px 6px;
+ }
+ 
+ /* 月亮 */
+ .com-moon {
+     display: inline-block;
+     height: 1.5em;
+     width: 1.5em;
+     box-shadow: inset -0.4em 0 0 orange;
+     border-radius: 2em;
+     transform: rotate(20deg);
+ }
+ /* css3 绘制图标eee*/
+ 
+ /*循环缩放动画sss*/
+ @keyframes scaleDraw {  /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/
+     0%{
+         transform: scale(1);  /*开始为原始大小*/
+     }
+     25%{
+         transform: scale(1.2); /*放大1.1倍*/
+     }
+     50%{
+         transform: scale(1);
+     }
+     75%{
+         transform: scale(1.2);
+     }
+ }
+ 
+ /*循环缩放动画*/
+ .animate-scale{
+     -webkit-animation-name: scaleDraw; /*关键帧名称*/
+     -webkit-animation-timing-function: ease-in-out; /*动画的速度曲线*/
+     -webkit-animation-iteration-count: infinite;  /*动画播放的次数*/
+     -webkit-animation-duration: 5s; /*动画所花费的时间*/
+ 
+     animation-name: scaleDraw; /*关键帧名称*/
+     animation-timing-function: ease-in-out; /*动画的速度曲线*/
+     animation-iteration-count: infinite;  /*动画播放的次数*/
+     animation-duration: 5s; /*动画所花费的时间*/
+ }
+ /*循环缩放动画eee*/
+ 
+ /* 关于动画eee */
+ 
+ 
+ /* 小三角sss */
+ .triangle {
+     /* 基础样式 */
+     border: solid 10px transparent;
+ }
+ /*下*/
+ .triangle.bottom {
+     border-top-color: green;
+     width: 0;
+     height: 0;
+ }
+ /*上*/
+ .triangle.top {
+     border-bottom-color: green;
+     width: 0;
+     height: 0;
+ }
+ /*左*/
+ .triangle.left {
+     border-right-color: green;
+     width: 0;
+     height: 0;
+ }
+ /*右*/
+ .triangle.right {
+     border-left-color: green;
+     width: 0;
+     height: 0;
+ }
+ /* 小三角eee */
+ 
+ 
+ 
+ 
+ /* 元素阴影 针对各个分辨率大小  sss */
+ .shadow-text-xs {
+     text-shadow: 4px 3px 0 #1d9d74, 9px 8px 0 rgba(0, 0, 0, 0.15);
+ } /*智能兼容ie10以上 暂不考虑*/
+ 
+ .shadow-xs {
+     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=100, Color='#cccccc')"; /* For IE 8 */
+     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=100, Color='#cccccc'); /* For IE 5.5 - 7 */
+     -moz-box-shadow: 1px 1px 2px #cccccc; /* for firefox */
+     -webkit-box-shadow: 1px 1px 2px #cccccc; /* for safari or chrome */
+     box-shadow: 1px 1px 2px #cccccc; /* for opera or ie9 */
+ }
+ .shadow-sm {
+     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=120, Color='#cccccc')"; /* For IE 8 */
+     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=120, Color='#cccccc'); /* For IE 5.5 - 7 */
+     -moz-box-shadow: 2px 2px 3px #cccccc; /* for firefox */
+     -webkit-box-shadow: 2px 2px 3px #cccccc; /* for safari or chrome */
+     box-shadow: 2px 2px 3px #cccccc; /* for opera or ie9 */
+ }
+ .shadow-md {
+     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#cccccc')"; /* For IE 8 */
+     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#cccccc'); /* For IE 5.5 - 7 */
+     -moz-box-shadow: 3px 3px 5px #cccccc; /* for firefox */
+     -webkit-box-shadow: 3px 3px 5px #cccccc; /* for safari or chrome */
+     box-shadow: 3px 3px 5px #cccccc; /* for opera or ie9 */
+ }
+ .shadow-lg {
+     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=150, Color='#cccccc')"; /* For IE 8 */
+     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=150, Color='#cccccc'); /* For IE 5.5 - 7 */
+     -moz-box-shadow: 5px 5px 8px #cccccc; /* for firefox */
+     -webkit-box-shadow: 5px 5px 8px #cccccc; /* for safari or chrome */
+     box-shadow: 5px 5px 8px #cccccc; /* for opera or ie9 */
+ }
+ /* 元素阴影 针对各个分辨率大小  eee */
+ 
+ /* 背景色渐变sss */
+ 
+ /*蓝色渐变*/
+ .gradient-bg-blue{
+     /* Firefox 3.6+ */
+     background: -moz-linear-gradient(top, #66b7f9,#1c82d4);
+     /* Safari 4-5, Chrome 1-9 */
+     background: -webkit-gradient(linear,top,from(#66b7f9),to(#1c82d4));
+     /* Safari 5.1+, Chrome 10+ */
+     background: -webkit-linear-gradient(top, #66b7f9, #1c82d4);
+     /* Opera 11.10+ */
+     background: -o-linear-gradient(top, #66b7f9, #1c82d4);
+     /* default */
+     background: linear-gradient(top, #66b7f9, #1c82d4);
+     background-color: #1c82d4;
+ }
+ /**橙色渐变*/
+ .gradient-bg-orange{
+     /* Firefox 3.6+ */
+     background: -moz-linear-gradient(top, #ffaa00,#ffff00);
+     /* Safari 4-5, Chrome 1-9 */
+     background: -webkit-gradient(linear,top,from(#ffaa00),to(#ffff00));
+     /* Safari 5.1+, Chrome 10+ */
+     background: -webkit-linear-gradient(top, #ffaa00, #ffff00);
+     /* Opera 11.10+ */
+     background: -o-linear-gradient(top, #ffaa00, #ffff00);
+     /* default */
+     background: linear-gradient(top, #ffaa00, #ffff00);
+     background-color: #ffff00;
+ }
+ /**绿色渐变*/
+ .gradient-bg-green{
+     /* Firefox 3.6+ */
+     background: -moz-linear-gradient(top, #00aa00,#005500);
+     /* Safari 4-5, Chrome 1-9 */
+     background: -webkit-gradient(linear,top,from(#00aa00),to(#005500));
+     /* Safari 5.1+, Chrome 10+ */
+     background: -webkit-linear-gradient(top, #00aa00, #005500);
+     /* Opera 11.10+ */
+     background: -o-linear-gradient(top, #00aa00, #005500);
+     /* default */
+     background: linear-gradient(top, #00aa00, #005500);
+     background-color: #005500;
+ }
+ /**红色渐变*/
+ .gradient-bg-red{
+     /* Firefox 3.6+ */
+     background: -moz-linear-gradient(top, #ff007f,#ff0000);
+     /* Safari 4-5, Chrome 1-9 */
+     background: -webkit-gradient(linear,top,from(#ff007f),to(#ff0000));
+     /* Safari 5.1+, Chrome 10+ */
+     background: -webkit-linear-gradient(top, #ff007f, #ff0000);
+     /* Opera 11.10+ */
+     background: -o-linear-gradient(top, #ff007f, #ff0000);
+     /* default */
+     background: linear-gradient(top, #ff007f, #ff0000);
+     background-color: #ff0000;
+ }
+ /**紫色渐变*/
+ .gradient-bg-zise{
+     /* Firefox 3.6+ */
+     background: -moz-linear-gradient(top, #aa55ff,#aa00ff);
+     /* Safari 4-5, Chrome 1-9 */
+     background: -webkit-gradient(linear,top,from(#aa55ff),to(#aa00ff));
+     /* Safari 5.1+, Chrome 10+ */
+     background: -webkit-linear-gradient(top, #aa55ff, #aa00ff);
+     /* Opera 11.10+ */
+     background: -o-linear-gradient(top, #aa55ff, #aa00ff);
+     /* default */
+     background: linear-gradient(top, #aa55ff, #aa00ff);
+     background-color: #aa00ff;
+ }
+ 
+ /* 背景色渐变eee */
+ 
+ /*mui 自定义模板的索引和背景重新定义*/
+ .mui-backdrop.mui-backdrop-diy{
+     z-index: 9999;
+     background-color: rgba(0,0,0,.5);
+ }
+ [v-cloak]{display: none;}
+ 
+ /* 自定义页面公共遮罩层 */
+ .diy-mask-layer{
+     position: fixed;
+     z-index: 13288547577;
+     top:0;
+     right: 0;
+     bottom: 0;
+     left: 0;
+     background-color: rgba(0,0,0,.5);
+ }
+ 
+ 
+ /* *{box-sizing: border-box;} */
+
+.sys-color{color: #378FFA;}
+.sys-bg-color{background-color: #378FFA;}
+/* 自定义tab组件 */
+.diy-tab-box {
+    padding: 2px;
+    border-radius: 8px;
+    background: #e4e6ea;
+  }
+  .diy-tab-box.diy-tab-box-vertical {
+    background-color: transparent;
+  }
+  .diy-tab-box.diy-tab-box-vertical .diy-tab-item {
+    display: block;
+  }
+  .diy-tab-box.diy-tab-box-vertical .diy-tab-item.active {
+    color: #000;
+    font-weight: bold;
+    background: #F5F5F5;
+  }
+  .diy-tab-box .diy-tab-item {
+    font-size: 15px;
+    padding: 4px 15px;
+    border-radius: 8px;
+    background-color: transparent;
+    display: inline-block;
+    box-sizing: border-box;
+  }
+  .diy-tab-box .diy-tab-item.active {
+    color: #378FFA;
+    background: #fff;
+  }
+
+  /* 自定义时间选择器输入框样式 */
+  /* .xhb-mobile-date-picker{background-color: ;} */
+  .xhb-mobile-date-picker .iconfont{
+    font-size: 22px;
+  }
+  .xhb-mobile-date-picker-input-box{
+    width: 150px;
+    height: 24px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    text-align: center;
+  }
+  .xhb-mobile-date-picker-input{width: 100px;border: none;}
+  .xhb-mobile-date-picker-arrow.iconfont{
+    vertical-align: baseline;
+    position: relative;
+    top: 2px;
+  }
+
+  /* 自定义echarts的legend组件 样式*/
+  .diy-echart-legend {
+    width: 100%;
+  }
+  .diy-echart-legend .diy-echart-legend-item {
+    cursor: pointer;
+  }
+  .diy-echart-legend .diy-echart-legend-item.diy-echart-legend-item-disabled {
+    color: #ccc;
+  }
+  .diy-echart-legend .diy-echart-legend-item.diy-echart-legend-item-disabled .diy-echart-legend-item-notice svg {
+    color: #ccc;
+  }
+  .diy-echart-legend .diy-echart-legend-item .diy-echart-legend-item-notice {
+    vertical-align: text-top;
+  }

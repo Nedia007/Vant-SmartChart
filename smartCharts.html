@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="growatt-font/iconfont.css">
+	<link rel="stylesheet" href="css/common.css">
+
+	<script src="js/vue.min.js"></script>
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="vant2/vant.min.css">
+	<!-- 引入组件库 -->
+	<script src="vant2/vant.min.js"></script>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.xhb.plugin.js"></script>
+	<script src="js/echarts.min.js"></script>
+
+	<!-- 自定义通用组件 -->
+	<script src="components/xhb-mobile-common-tab.js"></script>
+	<script src="components/xhb-mobile-date-picker.js"></script>
+	<script src="components/diy-echart-legend.js"></script>
+	<link rel="stylesheet" href="components/style.css">
+
+	<!-- 模拟图表数据 -->
+	<script src="api/smartPlanningChart.js"></script>
+	<script src="api/revenueChart.js"></script>
+	<script src="api/priceChart.js"></script>
+
+	<style>
+		html,
+		body {
+			width: 100%;
+			overflow: auto;
+		}
+
+		#smartCharts {
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		.smart-chart-box {
+			background-color: #fff;
+			box-sizing: border-box;
+			padding: 15px;
+			margin: 15px;
+			border-radius: 8px;
+			border: 1px solid #ddd;
+		}
+
+		.smart-chart-box-title img {
+			width: 24px;
+			height: 24px;
+		}
+
+		.smart-chart-box-title-span {
+			line-height: 24px;
+			margin-left: 5px;
+		}
+		.plan-details-charts-item-chart-box{
+			width: 100%;
+			height: 300px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div id="smartCharts">
+		<!-- 收益sss -->
+		<div class="smart-chart-box smart-chart-box-income">
+			<div class="smart-chart-box-title mb-5 flex_flex-start fs-14 ">
+				<img src="images/smartCharts/income.png" alt="" srcset="">
+				<span class="smart-chart-box-title-span">收益</span>
+			</div>
+			<div class="flex_center">
+				<xhb-mobile-common-tab :list="diyTabList" @tab_click="tabClick"></xhb-mobile-common-tab>
+			</div>
+			<div class="mt-10 flex_center" style="min-height: 24px;">
+				<xhb-mobile-date-picker type="year-month" v-model="incomeDate.monthValue" v-show="currDiyTabSort === 1"
+					placeholder="选择年月" ref="xhbMobileDatePickerDOM0"
+					@confirm_date_event="confirm_date_event_fn0"></xhb-mobile-date-picker>
+
+				<xhb-mobile-date-picker type="year" v-model="incomeDate.yearValue" v-show="currDiyTabSort === 2"
+					placeholder="选择年份" ref="xhbMobileYearPickerDOM1"
+					@confirm_year_event="confirm_year_event_fn1"></xhb-mobile-date-picker>
+
+				<xhb-mobile-date-picker type="year" v-model="incomeDate.fiveYearValue" v-show="currDiyTabSort === 3"
+					placeholder="选择年份" ref="xhbMobileYearPickerDOM2"
+					@confirm_year_event="confirm_year_event_fn2"></xhb-mobile-date-picker>
+			</div>
+
+			<div class="plan-details-charts-item" >
+				<div id="chart_2" class="plan-details-charts-item-chart-box"  ref="chartContainer_2"></div>
+				<!-- 自定义echart legend组件 sss-->
+				<diy-chart-legend :legend_list="chartsFieldList_2" @legend_item_click="legendItemClickFn2" :color_list="colorList"></diy-chart-legend>
+				 <!-- 自定义echart legend组件 eee-->
+			  </div>
+		</div>
+		<!-- 收益sss -->
+
+		<!-- AI计划sss -->
+		<div class="smart-chart-box smart-chart-box-AI-initiatives">
+			<div class="smart-chart-box-title mb-5 flex_space-between fs-14">
+				<div class="flex_flex-start">
+					<img src="images/smartCharts/AI-initiatives.png" alt="" srcset="">
+					<span class="smart-chart-box-title-span">AI 计划</span>
+				</div>
+				<div><a class="sys-color">修改计划</a></div>
+			</div>
+			<div class="mt-10 flex_center">
+				<xhb-mobile-date-picker type="date" v-model="AIInitiatives.dateValue" ref="xhbMobileDatePickerDOM1"
+					placeholder="选择日期" @confirm_date_event="confirm_date_event_fn1"></xhb-mobile-date-picker>
+			</div>
+
+			<div class="plan-details-charts-item"  >
+				<div id="chart_1" class="plan-details-charts-item-chart-box"  ref="chartContainer_1"></div>
+				<!-- 自定义echart legend组件 sss-->
+				<diy-chart-legend :legend_list="chartsFieldList_1" @legend_item_click="legendItemClickFn1" :color_list="colorList"></diy-chart-legend>
+				 <!-- 自定义echart legend组件 eee-->           
+			</div>
+		</div>
+		<!--  AI计划 eee -->
+
+		<!-- 电价走势 sss -->
+		<div class="smart-chart-box smart-chart-box-electricity-price-trends">
+			<div class="smart-chart-box-title mb-5 flex_space-between fs-14">
+				<div class="flex_flex-start">
+					<img src="images/smartCharts/electricity-price-trends.png" alt="" srcset="">
+					<span class="smart-chart-box-title-span">电价走势</span>
+				</div>
+				<div><a class="sys-color">修改计划</a></div>
+			</div>
+			<div class="mt-10 flex_center">
+				<xhb-mobile-date-picker type="date" v-model="electricityPrice.dateValue" ref="xhbMobileDatePickerDOM2"
+					placeholder="选择日期" @confirm_date_event="confirm_date_event_fn2"></xhb-mobile-date-picker>
+			</div>
+
+			<div class="plan-details-charts-item" >
+				<div id="chart_3" class="plan-details-charts-item-chart-box"  ref="chartContainer_3"></div>
+				<!-- 自定义echart legend组件 sss-->
+				<diy-chart-legend :legend_list="chartsFieldList_3" @legend_item_click="legendItemClickFn3" :color_list="colorList"></diy-chart-legend>
+				 <!-- 自定义echart legend组件 eee-->
+			</div>
+		</div>
+		<!-- 电价走势 eee -->
+
+
+	</div>
+
+
+
+	<script>
+		//随机生成十六进制颜色值
+		 function randomColor() {
+		/*随机产生十六进制的颜色值*/
+		let i = 0;
+		let str = "#";
+		let random = 0;
+		let aryNum = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
+		for (i = 0; i < 6; i++) {
+			random = parseInt(Math.random() * 16);
+			str += aryNum[random];
+		}
+		return str;
+		}
+
+
+
+		var smartChartsAPP = new Vue({
+			el: "#smartCharts",
+			components: {
+				'xhb-mobile-common-tab': xhbMobileCommonTab,//自定义tab组件
+				'xhb-mobile-date-picker': xhbMobileDatePicker,//自定义日期组件
+				'diy-chart-legend':diyEchartLegend,//自定义图表legend组件
+			},
+			data() {
+				return {
+					diyTabList: [
+						{ id: 1, name: '月', active: true },
+						{ id: 2, name: '年', active: false },
+						{ id: 3, name: '近5年', active: false },
+					],
+					currDiyTabSort: 1,
+					incomeDate: {//收益的时间选择器对应值
+						monthValue: $.getOnTime('y-m'),
+						yearValue: $.getOnTime('y'),
+						fiveYearValue: $.getOnTime('y'),
+					},
+					AIInitiatives: {//AI计划的时间选择器对应值
+						dateValue: $.getOnTime('y-m-d'),
+					},
+					electricityPrice: {//电价走势的时间选择器对应值
+						dateValue: $.getOnTime('y-m-d'),
+					},
+					chart_1: null,
+					chart_2: null,
+					chart_3: null,
+					/**
+					 * 图表根据后端返回字段定义文案
+					 */
+					chartsFieldList_1: [
+						{ text: 'AI计划-电池功率', unit: '%', field: 'p_percent', type: 'chart_1', disabled: false, notice: '由AI每天为该设备生成的调度电池计划。可以通过公式，计算出计划的电池功率。计划电池功率=AI计划_电池功率(%)*电池的额定功率' },
+						{ text: '电池充电功率', unit: 'kW', field: 'chargePower', type: 'chart_1', disabled: false, notice: "当前设备下总的电池充电功率的和，图表中展示当前时刻，前后近10min数据之和的平均值" },
+						{ text: '电池放电功率', unit: 'kW', field: 'dischargePower', type: 'chart_1', disabled: false, notice: "当前设备下总的电池放电功率的和。图表中展示当前时刻，前后近10min数据之和的平均值。" },
+						{ text: 'AI计划-自动防逆流', unit: '', field: 'anti_reverse_enabled', disabled: false, notice: "由AI每天为该设备生成的防逆流计划。0，代表禁止；1代表使能。" },
+						{ text: '馈电功率', unit: 'kW', field: 'reverActivePower', type: 'chart_1', disabled: false, notice: "从当前设备接入的电表来获取，无电表时，数据为0。" },
+						{ text: '取电功率', unit: 'kW', field: 'activePower', type: 'chart_1', disabled: false, notice: "从当前设备接入的电表来获取，无电表时，数据为0。" },
+					],
+					chartsFieldList_2: [
+						{
+							text: 'AI调度-收益', unit: 'rmb/kWh', field: 'incomeTotal', type: 'chart_2', disabled: false, notice: [
+								'使用AI策略，通过下述公式计算的总收益为AI调度-收益。',
+								'总收益 = 光伏收益+储能收益',
+								'光伏收益 = 光伏并网电量*售电电价+自发自用电量*购电电价',
+								'储能收益 = 套利收益 = 储能自发自用电量* 购电电价 + 储能并网电量*售电电价- 储能从电网充电电量*购电电价'
+							]
+						},
+						{
+							text: '默认策略-收益', unit: 'rmb/kWh', field: 'incomeTotalDefault', type: 'chart_2', disabled: false, notice: [
+								'默认机器处于负载优先的策略，通过下述公式计算的总收益为默认策略-收益',
+								'总收益 = 光伏收益+储能收益',
+								'光伏收益 = 光伏并网电量*售电电价+自发自用电量*购电电价',
+								'储能收益 = 套利收益 = 储能自发自用电量* 购电电价 + 储能并网电量*售电电价- 储能从电网充电电量*购电电价'
+							]
+						},
+					],
+					chartsFieldList_3: [
+						{ text: '基准取电电价', unit: 'rmb/kWh', field: 'charge_price', type: 'chart_3', disabled: false, },
+						{ text: '基准馈电电价', unit: 'rmb/kWh', field: 'discharge_price', type: 'chart_3', disabled: false, },
+						{ text: '馈电电价(含税)', unit: 'rmb/kWh', field: 'discharge_price_rate', type: 'chart_3', disabled: false, notice: '馈电电价（含税）=基准馈电电价+馈电税率' },
+						{ text: '取电电价(含税)', unit: 'rmb/kWh', field: 'charge_price_rate', type: 'chart_3', disabled: false, notice: '取电电价（含税）=基准取电电价+取电税率' },
+					],
+					commonXAxisData: [],
+					colorList: ["#f53f3f","#fa8c16","#ffd666","#7cb305","#50941C","#08979c","#40a9ff","#69c0ff","#597ef7","#b37feb","#ffa940","#1890ff","#13c2c2"],
+
+				}
+			},
+			created() {
+				this.commonXAxisData = this.getFiveMinutes(30);
+			},
+			mounted() {
+				this.renderChart_1(this.chartsFieldList_1);
+				this.renderChart_2(this.chartsFieldList_2);
+				this.renderChart_3(this.chartsFieldList_3);
+			},
+			watch: {
+
+			},
+			methods: {
+				tabClick(item) {
+					this.currDiyTabSort = item.id;
+				},
+				// 监听年月选择器
+				confirm_date_event_fn0(value) {
+					console.info(value, "......")
+					if (value && value != '') this.incomeDate.monthValue = value;
+				},
+				// 监听日期选择器---AI计划
+				confirm_date_event_fn1(value) {
+					//AIInitiatives.dateValue
+					if (value && value != '') this.AIInitiatives.dateValue = value;
+				},
+				// 监听日期选择器---电价调整
+				confirm_date_event_fn2(value) {
+					// electricityPrice.dateValue
+					if (value && value != '') this.electricityPrice.dateValue = value;
+				},
+				// 监听年选择器---收益
+				confirm_year_event_fn1(value) {
+					if (value && value != '') this.incomeDate.yearValue = value;
+				},
+				// 监听近5年选择器---收益
+				confirm_year_event_fn2(value) {
+					if (value && value != '') this.incomeDate.fiveYearValue = value;
+				},
+				/**
+				 * 根据公共颜色列表某索引，返回折线区域图渐变色变量配置
+				 * @param {Number} n 颜色表某颜色索引
+				 * @param {String} diyColor
+				 * 
+				 */
+				getAreaStyleBySort(n,diyColor){
+					let color = this.colorList[n];
+					if(diyColor) color = diyColor;//用自定义颜色
+					if(color === undefined) color = randomColor().toLocaleLowerCase();
+					return  {
+						opacity: 0.8,
+						color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+							{
+							offset: 0,
+							color,
+							},
+							{
+							offset: 1,
+							color: 'rgb(255, 255, 255)'
+							}
+						]),
+					};
+				},
+				/**
+				 * 获取数组元素最大值
+				 * @param {Array} arr 一维数组(里面皆是数字)
+				 * @return {Number}
+				 * */
+				getArrayMax(arr) {
+					window.Array.prototype.max = function() {
+						let max = this[0];
+						let len = this.length;
+						for (let i = 1; i < len; i++) {
+						if (this[i] > max) {
+							max = this[i];
+						}
+						}
+						return max;
+					}
+					return arr.max();
+				},
+				/**
+				 * 生成一天每隔n分钟的时分数据，返回数组
+				 * @param {number} [min=5] 默认每5分钟 1笔
+				 * @returns {Array}
+				*/
+				getFiveMinutes(min = 5) {
+					let arr = [];
+					for (let i = 0; i < 24; i++) {
+						for (let j = 0; j < 60; j = j + min) {
+							let str = (i < 10 ? '0' + i : i) + ':' + (j < 10 ? '0' + j : j);
+							arr.push(str);
+						}
+					}
+					return arr;
+				},
+				/**
+				 * 图表根据后端返回字段定义文案
+				 * @param {String} field 后端返回字段
+				 * AI计划-电池功率(%) p_percent
+				 * 电池充电功率(kW) chargePower
+				 * 电池放电功率(kW) dischargePower
+				 * AI计划-自动防逆流 anti_reverse_enabled
+				 * 馈电功率(kW) reverActivePower
+				 * 取电功率(kW) activePower
+				 * 
+				 * AI调度-收益(rmb/kWh) incomeTotal 
+				 * 默认策略-收益(rmb/kWh) incomeTotalDefault
+				 * 
+				 * 基准取电电价(rmb/kWh) charge_price
+				 * 基准馈电电价 (rmb/kWh) discharge_price
+				 * 馈电电价（含税）(rmb/kWh) discharge_price_rate
+				 * 取电电价（含税）(rmb/kWh) charge_price_rate
+				 * 
+				 */
+				getTextAndUnitByServerField(field) {
+
+					let res = { text: '', unit: '' };
+					let chartsFieldList = this.chartsFieldList_1.concat(this.chartsFieldList_2, this.chartsFieldList_3);
+					let items = chartsFieldList.filter(item => {
+						if (item.field == field) return item;
+					});
+					return items[0] || res;
+				},
+				chartsCommonOption(xAxisData, _seriesData, param) {
+					let res = {
+						color: this.colorList,
+						title: {
+							text: null
+						},
+						xAxis: {
+							type: 'category',
+							data: xAxisData,
+						},
+						legend: {
+							left: 'center',
+							bottom: 0,
+						},
+						tooltip: {
+							trigger: 'axis'
+						},
+						grid: {
+							left: '8%',
+							right: '5%',
+							bottom: '5%',
+							top: '12%',
+							containLabel: true
+						},
+						yAxis: {
+							type: 'value'
+						},
+						series: _seriesData
+					};
+					let z = {
+						dataZoom: [
+							// {
+							// 	type: 'slider', // 使用滑动条型数据区域缩放组件
+							// 	start: 0, // 默认为 0
+							// 	end: 100 // 默认为 100
+							// },
+							{
+								type: 'inside', // 内置于坐标系中的数据区域缩放组件
+								start: 0, // 默认为 0
+								end: 100 // 默认为 100
+							}
+						],
+					};
+					if (param) res = { ...res, ...param ,...z};
+					return res;
+				},
+				/**
+				* 过滤图表数据,返回系列数据和对应颜色表
+				* 
+				*/
+				filtersSeriesData(paramList, seriesData) {
+					let resColorList = [];
+					let colorList = {...this.colorList};
+					if (paramList) {
+						let disabledFields = [];
+
+
+						paramList.forEach((item, index) => {
+							if (item.type && item.disabled) {
+								disabledFields.push(item.field);
+							} else {
+								resColorList.push(colorList[index])
+							}
+						});
+						disabledFields.forEach((item) => {
+							delete seriesData[item];
+						});
+						return [seriesData, resColorList]
+					} else {
+						return [seriesData, colorList]
+					}
+
+				},
+				/**
+				* 渲染图表1[AI 图表]
+				* @param {Array} paramList 字段系列对应参数表
+				*/
+				async renderChart_1(paramList) {
+					try {
+						let res = smartPlanningChart_DATA;
+
+						let xAxisData = res.data.keys;
+						/**
+						  * * AI计划-电池功率(%) p_percent
+						* 电池充电功率(kW) chargePower
+						* 电池放电功率(kW) dischargePower
+						* AI计划-自动防逆流 anti_reverse_enabled
+						* 馈电功率(kW) reverActivePower
+						* 取电功率(kW) activePower
+						  * 
+						 */
+						//需要除以1000的字段 ;后端返回的单位是W
+						let kWUnitFieldList = ['chargePower', 'dischargePower', 'reverActivePower', 'activePower'];
+						for (let key in res.data.value) {
+							res.data.value[key] = res.data.value[key].map((item) => {
+								return kWUnitFieldList.includes(key) ? (item / 1000) : (item * 1);
+							})
+						}
+						let seriesData = res.data.value;
+						//过滤图表数据
+						let filterData = this.filtersSeriesData(paramList, seriesData);
+						seriesData = filterData[0];
+						let colorList = filterData[1];
+						this.initChart_1(xAxisData, seriesData, colorList);
+					} catch (error) {
+						console.info('图表1报错',error)
+					}
+
+				},
+				/**
+				* 渲染图表2
+				* @param {Array} paramList 字段系列对应参数表
+				*/
+				async renderChart_2(paramList) {
+					try {
+						let res = revenueChart_DATA;
+
+						//设置单位,同一个
+						this.chartsFieldList_2.forEach((item) => {
+							item.unit = res.data[0].unit;
+						});
+
+						let xAxisData = [];
+						/**
+					   * AI调度-收益(rmb/kWh) incomeTotal 
+					 * 默认策略-收益(rmb/kWh) incomeTotalDefault
+					   * 
+					   */
+						let seriesData = {
+							incomeTotal: [],
+							incomeTotalDefault: [],
+						};
+						res.data.forEach((item) => {
+							xAxisData.push(item.dataTime);
+							seriesData.incomeTotal.push(item.incomeTotal * 1);
+							seriesData.incomeTotalDefault.push(item.incomeTotalDefault * 1);
+						});
+
+						//过滤图表数据
+						let filterData = this.filtersSeriesData(paramList, seriesData);
+						seriesData = filterData[0];
+						let colorList = filterData[1];
+						this.initChart_2(xAxisData, seriesData, colorList);
+
+					} catch (error) {
+						console.info(error,"错误：.....")
+					}
+
+
+				},
+				/**
+				* 渲染图表3
+				* @param {Array} paramList 字段系列对应参数表
+				*/
+				async renderChart_3(paramList) {
+					try {
+
+						let res = priceChart_DATA;
+
+						//设置电价来源参数
+						this.pricingCategory = res.data.pricingCategory;
+						//设置单位,同一个
+						this.chartsFieldList_3.forEach((item) => {
+							item.unit = res.data.unit
+						});
+
+						/**
+						* 基准取电电价(rmb/kWh) charge_price
+						* 基准馈电电价 (rmb/kWh) discharge_price
+						* 馈电电价（含税）(rmb/kWh) discharge_price_rate
+						* 取电电价（含税）(rmb/kWh) charge_price_rate
+						  * 
+						*/
+						let seriesData = {
+							charge_price: res.data.charge_price.map((item) => { return item * 1 }),
+							discharge_price: res.data.discharge_price.map((item) => { return item * 1 }),
+							discharge_price_rate: res.data.discharge_price_rate.map((item) => { return item * 1 }),
+							charge_price_rate: res.data.charge_price_rate.map((item) => { return item * 1 }),
+						};
+						let xAxisData = this.commonXAxisData;
+						//过滤图表数据
+						let filterData = this.filtersSeriesData(paramList, seriesData);
+						seriesData = filterData[0];
+						let colorList = filterData[1];
+						this.initChart_3(xAxisData, seriesData, colorList);
+
+					} catch (error) {
+
+					}
+				},
+				
+				/**
+				* 初始化图表1数据
+				* @param {Array} xAxisData x轴数据 例如：['00:00', '00:01', '00:02', '00:03', '00:04', '00:05','00:06']
+				* @param {Object} seriesData 系列数据 ，例如：{'pac':[1,2,3],'ppv':[4,5,6]}
+				* @param {Array} colorList 
+				* 
+				*/
+				initChart_1(xAxisData, seriesData, colorList) {
+					let _this = this;
+					if (!xAxisData || !seriesData) {
+						return;
+					}
+
+					if (this.chart_1) this.chart_1.clear();
+
+					const chartContainer = this.$refs['chartContainer_1'];
+					this.chart_1 = echarts.init(chartContainer);						
+
+
+					let _seriesData = [];
+					let seriesDataPropList = Object.keys(seriesData);
+					// 统计所有数据中最大值数组
+					let staticMaxArray = [];
+					seriesDataPropList.forEach((item, index) => {
+						let { text, unit } = this.getTextAndUnitByServerField(item);
+						if (item !== 'anti_reverse_enabled') {
+							_seriesData.push({
+								type: 'line',
+								smooth: true,
+								// symbol: 'none',
+								areaStyle: this.getAreaStyleBySort(index, colorList ? colorList[index] : undefined),
+								name: item,
+								unit: unit,
+								data: seriesData[item],
+								yAxisIndex: ['p_percent'].includes(item) ? 1 : 0,
+
+							});
+							if (!['p_percent'].includes(item)) staticMaxArray = staticMaxArray.concat(seriesData[item]);
+
+						}
+
+					});
+
+					//获取图表中所有系列中最大值
+					let maxNumber = this.getArrayMax(staticMaxArray);
+					maxNumber = Math.ceil(maxNumber);
+					let minNumber = -maxNumber;
+
+					let yAxisAndTooltipParam = {
+						legend: {
+							show: false,
+						},
+						tooltip: {
+							trigger: 'axis',
+							formatter: function (p, p2) {
+								var xAxisName = "";
+								var tem = "";
+								var autoAntiReverseTxtTooltip = "";
+								let sort = p[0]['dataIndex'];
+								//AI计划-自动防逆流 anti_reverse_enabled   
+								autoAntiReverseTxtTooltip = `<div><span>AI计划-自动防逆流: </span><b>${seriesData['anti_reverse_enabled'][sort] == 1 ? '使能' : '禁止'}</b></div>`;
+
+								for (var i = 0; i < p.length; i++) {
+									xAxisName = '<div>' + _this.AIInitiatives.dateValue + ' ' + p[i].axisValue + '</div>';
+									//定义单位
+									let { text, unit } = _this.getTextAndUnitByServerField(p[i].seriesName);
+									if (unit == 'kW') p[i].value = Number((p[i].value).toFixed(3));
+
+									tem += '<div><span class="mr-5" style="color:' + p[i].color + '">\u25CF</span><span>' + text +
+										': </span><b>' + (p[i].value) + unit + '</b></div>';
+								}
+								return xAxisName + autoAntiReverseTxtTooltip + tem;
+							}
+						},
+						yAxis: [
+							{
+								type: 'value',
+								axisLabel: {
+									formatter: '{value} '
+								},
+								name: "功率（kW）",
+								nameLocation: "middle",
+								nameGap: 30,
+								min: maxNumber,
+								max: minNumber,
+							},
+							{
+								type: 'value',
+								name: "AI计划-电池功率(%)",
+								nameLocation: "middle",
+								nameGap: 40,
+								min: -100,
+								max: 100,
+								// interval: 5,
+								axisLabel: {
+									formatter: '{value} %'
+								}
+							}
+						],
+					};
+
+					let option = this.chartsCommonOption(xAxisData, _seriesData, yAxisAndTooltipParam);
+					if (colorList) option.color = colorList;
+					this.chart_1.setOption(option);
+					
+				},
+				initChart_2(xAxisData, seriesData, colorList) {
+					if (!xAxisData || !seriesData) {
+						return;
+					}
+					console.info('xAxisData, seriesData, colorList',xAxisData, seriesData, colorList)
+					if (this.chart_2) this.chart_2.clear();
+
+					const chartContainer = this.$refs['chartContainer_2'];
+					this.chart_2 = echarts.init(chartContainer);
+
+					let _seriesData = [];
+					let seriesDataPropList = Object.keys(seriesData);
+					let titleUnit = '';
+					seriesDataPropList.forEach((item, index) => {
+						let { text, unit } = this.getTextAndUnitByServerField(item);
+						titleUnit = unit;
+						_seriesData.push({
+							type: 'bar',
+							name: text,
+							data: seriesData[item],
+							tooltip: {
+								valueFormatter: function (value) {
+									return value + ' ' + unit;
+								}
+							},
+							showBackground: true,
+							barMaxWidth: '20%',
+							itemStyle: {
+								normal: {
+									//这里设置柱形图圆角 [左上角，右上角，右下角，左下角]
+									barBorderRadius: [8, 8, 0, 0],
+								}
+							},
+						})
+					});
+					
+					let option = this.chartsCommonOption(xAxisData, _seriesData, {
+						yAxis: [
+							{
+								type: 'value',
+								axisLabel: {
+									formatter: '{value}'
+								},
+								name: titleUnit,
+								nameLocation: "middle",
+								nameGap: 30,
+							},
+						],
+						legend: {
+							show: false,
+						},
+					});
+					console.info('option',option)
+
+					if (colorList) option.color = colorList;
+					this.chart_2.setOption(option);
+
+
+				},
+				initChart_3(xAxisData, seriesData, colorList) {
+					let _this = this;
+					if (!xAxisData || !seriesData) {
+						return;
+					}
+
+					if (this.chart_3) this.chart_3.clear();
+
+					const chartContainer = this.$refs['chartContainer_3'];
+					this.chart_3 = echarts.init(chartContainer);
+
+					let _seriesData = [];
+					let seriesDataPropList = Object.keys(seriesData);
+					let titleUnit = '';
+					seriesDataPropList.forEach((item, index) => {
+						let { text, unit } = this.getTextAndUnitByServerField(item);
+						titleUnit = unit;
+						_seriesData.push({
+							type: 'line',
+							smooth: true,
+							// symbol: 'none',
+							areaStyle: this.getAreaStyleBySort(index, colorList ? colorList[index] : undefined),
+							name: text,
+							data: seriesData[item],
+							// tooltip: {
+							//   valueFormatter: function (value) {   
+							//     return value + ' ' +unit;
+							//   }
+							// },
+						})
+					});
+
+					let option = this.chartsCommonOption(xAxisData, _seriesData, {
+						yAxis: [
+							{
+								type: 'value',
+								axisLabel: {
+									formatter: '{value}'
+								},
+								name: titleUnit,
+								nameLocation: "middle",
+								nameGap: 40,
+							},
+						],
+						legend: {
+							show: false,
+						},
+						tooltip: {
+							trigger: 'axis',
+							formatter: function (p, p2) {
+								var xAxisName = "";
+								var tem = "";
+								for (var i = 0; i < p.length; i++) {
+									xAxisName = '<div>' + _this.electricityPrice.dateValue + ' ' + p[i].axisValue + '</div>';
+
+									tem += '<div><span class="mr-5" style="color:' + p[i].color + '">\u25CF</span><span>' + p[i].seriesName +
+										': </span><b>' + (p[i].value) + ' ' + titleUnit + '</b></div>';
+								}
+								return xAxisName + tem;
+							}
+						},
+					});
+
+					if (colorList) option.color = colorList;
+					this.chart_3.setOption(option);
+
+				},
+				
+				//表1图例点击，过字段系列
+				legendItemClickFn1(param){
+					this.renderChart_1(param.list);
+				},
+				legendItemClickFn2(param){
+					this.renderChart_2(param.list);
+				},
+				legendItemClickFn3(param){
+					console.log(param,"param")
+					this.renderChart_3(param.list);
+				},
+
+			},
+			destroyed(){//注销监听器和图表，防止内存过意
+				// window.removeEventListener('resize',this.resizeCharts);
+				if (this.chart_1) this.chart_1.dispose();
+				if (this.chart_2) this.chart_2.dispose();
+				if (this.chart_3) this.chart_3.dispose();
+			},
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>创建计划</title>
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+
+    <script src="js/vue.min.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="vant2/vant.min.css">
+    <!-- 引入组件库 -->
+    <script src="vant2/vant.min.js"></script>
+
+    <script src="../js/jquery.js"></script>
+    <script src="../js/main/jquery.xhb.plugin.js"></script>
+</head>
+<body>
+    <div id="CreateSchedule">
+        <div>
+            <van-nav-bar
+                title="创建计划"
+                left-arrow
+                @click-left="onClickLeft"
+            />
+        </div>
+        <div>
+            <van-steps :active="activeStep" active-icon="success" active-color="#378FFA" inactive-color="#D8D8D8" center @click-step="clickStep">
+                <van-step v-for="(item,index) in stepList" :key="index">{{ item.name }}</van-step>
+              </van-steps>
+        </div>
+
+            
+    </div>
+    
+    <script>
+        var CreateScheduleAPP = new Vue({
+				el:"#CreateSchedule",
+				data(){
+					return {
+						activeStep:0,
+                        stepList:[
+                            {id:1, name:'Select device'},
+                            {id:2, name:'Configure electricity prices'},
+                            {id:3, name:'Select the scheduling mode'},
+                        ],
+					}
+				},
+				created(){
+
+				},
+				mounted() {
+					
+				},
+				watch:{
+
+				},
+				methods:{
+                    onClickLeft() {
+                        // 处理返回按钮点击事件
+                        console.info('返回按钮被点击');
+                    },
+                    clickStep(n){
+                        console.info('步骤点击：'+n);
+                    },
+				}
+			});
+    </script>
+</body>
+</html>
